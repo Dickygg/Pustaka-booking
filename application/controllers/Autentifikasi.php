@@ -10,7 +10,9 @@ class Autentifikasi extends CI_Controller
     {
 
         //jika status sudah login maka tidak bisa ke page login lagi alias balik ke page user
-
+        if ($this->session->userdata('email')) {
+            redirect('admin');
+        }
 
         $this->form_validation->set_rules('email', 'Alamat Email', 'required|trim', [
             'required' => 'Email Harus DiIsi',
@@ -67,5 +69,14 @@ class Autentifikasi extends CI_Controller
                 redirect('Autentifikasi');
             }
         }
+    }
+
+    public function logout()
+    {
+        $this->session->unset_userdata('email');
+        $this->session->unset_userdata('role_id');
+
+        $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-message" role="alert">Anda telah logout!</div>');
+        redirect('autentifikasi');
     }
 }

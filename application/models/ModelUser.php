@@ -28,8 +28,8 @@ class ModelUser extends CI_Model
     public function getUserLimit()
     {
         $this->db->select('*');
-        $this->db->from('users');
-        $this->db->where(10, 0);
+        $this->db->from('user');
+        $this->db->limit(10, 0);
         return $this->db->get();
     }
 }
