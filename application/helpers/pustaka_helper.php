@@ -18,5 +18,9 @@ alert-danger" role="alert">Akses ditolak. Anda belum login!!
         redirect('autentifikasi');
     } else {
         $role_id = $ci->session->userdata('role_id');
+
+        // if ($role_id != 1) {
+        //     redirect('menu');
+        // }
     }
 }

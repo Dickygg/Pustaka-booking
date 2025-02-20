@@ -20,7 +20,7 @@ topbar mb-4 static-top shadow">
                         id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $user['nama']; ?> </span>
                         <img class="img-profile rounded-circle"
-                            src="<?= base_url('assets/img/profile/') . $user['image']; ?>">
+                            src="<?= base_url('assets/sbadmin/img/profile/') . $user['image']; ?>">
 
                     </a>
                     <!-- Dropdown - User Information -->

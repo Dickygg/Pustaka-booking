@@ -79,4 +79,78 @@ class Autentifikasi extends CI_Controller
         $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-message" role="alert">Anda telah logout!</div>');
         redirect('autentifikasi');
     }
+
+
+    public function blok()
+    {
+        $this->load->view('errors/blok/');
+    }
+
+    public function gagal()
+    {
+        $this->load->view('errors/gagal/');
+    }
+
+    ////registasi
+
+    public function registrasi()
+    {
+        $this->load->model('modelUser');
+        if ($this->session->userdata('email')) {
+            redirect('user');
+        }
+
+        //membuat rule utk inputan nama agar tidak boleh kosong dengan membuat pesan eror
+        $this->form_validation->set_rules('nama', 'Nama Lengkap', 'required', [
+            'required' => 'Data Harus diisi'
+        ]);
+        //membuat rule email tidak boleh kosong,tidak ada spasi,format email harus valid dan belum pernah dipakai
+        $this->form_validation->set_rules('email', 'Alamat Email', 'required|trim|valid_email|is_unique[user.email]', [
+            'valid_email' => 'Email Tidak benar',
+            'required' => 'Email Tidak Boleh Kosong',
+            'is_unique' => 'Email sudah terdaftar',
+        ]);
+        //  Buat aturan validasi password:
+
+        // Tidak boleh kosong atau mengandung spasi.
+        // Minimal 3 karakter.
+        // Harus sama dengan repeat password.
+        // Pesan error:
+
+        // "Password Tidak Sama" jika tidak cocok.
+        // "Password Terlalu Pendek" jika kurang dari 3 karakter.
+
+        $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[1]|matches[password2]', [
+            'min_length' => 'Password terlalu pendek',
+            'matches' => 'Password Tidak Sama'
+        ]);
+
+        $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]', []);
+
+        if ($this->form_validation->run() == false) {
+            $title['judul'] = 'Registrasi';
+            $this->load->view('auth/head-auth', $title);
+            $this->load->view('auth/registrasi');
+            $this->load->view('auth/footer-auth');
+        } else {
+            $email = $this->input->post('email', true);
+            $data = [
+                'nama' => htmlspecialchars($this->input->post('nama', true)),
+                'email' => htmlspecialchars($email),
+                'image' => 'default.jpg',
+                'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
+                'role_id' => 2,
+                'is_active' => 0,
+                'tanggal_input' => time()
+
+            ];
+
+            $this->modelUser->simpandata($data);
+
+            $this->session->set_flashdata('pesan', '<div 
+            class="alert alert-success alert-message" role="alert">Selamat!! 
+            akun member anda sudah dibuat. Silahkan Aktivasi Akun anda</div>');
+            redirect('autentifikasi');
+        }
+    }
 }
