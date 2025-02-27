@@ -59,7 +59,7 @@ class ModelBuku extends CI_Model
         $this->db->insert('kategori', $data);
     }
 
-    public function upadateKategori($data = null, $where = null)
+    public function updateKategori($data = null, $where = null)
     {
         $this->db->update('kategori', $data, $where);
     }

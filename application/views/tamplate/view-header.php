@@ -12,6 +12,8 @@
     <link href="<?= base_url('assets/sbadmin/') ?>vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="<?= base_url('assets/sbadmin/') ?>datatable/datatables.css"
         rel="stylesheet" type="text/css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script type="text/javascript" src="<?= base_url('assets/sbadmin/') ?>datatable/jquery.dataTables.js'; ?>"></script>
     <script type="text/javascript" src="<?= base_url('assets/sbadmin/') ?>datatable/datatables.js'; ?>"></script>
     <link

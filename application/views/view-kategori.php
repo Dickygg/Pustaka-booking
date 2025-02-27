@@ -25,11 +25,15 @@
                             <th scope="row"><?= $a++; ?></th>
                             <td><?= $k['kategori']; ?></td>
                             <td>
+                                <a href="#" data-toggle="modal" data-target="#kategorieditModal"
+                                    class="badge badge-info"
+                                    data-id="<?= $k['id']; ?>"
+                                    data-kategori="<?= $k['kategori']; ?>">
+                                    <i class="fas fa-edit"></i> Ubah
+                                </a>
+
                                 <a href="<?=
-                                            base_url('buku/ubahBuku/') . $k['id']; ?>" class="badge badge-info"><i
-                                        class="fas fa-edit"></i> Ubah</a>
-                                <a href="<?=
-                                            base_url('kategori/hapuskategori/') . $k['id']; ?>" onclick="return confirm('Kamu yakin akan menghapus <?= $judul . ' ' . $k['kategori']; ?>?');" class="badge badge-danger"><i class="fas fa-trash"></i>
+                                            base_url('buku/hapuskategori/') . $k['id']; ?>" onclick="return confirm('Kamu yakin akan menghapus <?= $judul . ' ' . $k['kategori']; ?>?');" class="badge badge-danger"><i class="fas fa-trash"></i>
                                     Hapus</a>
                             </td>
                         </tr>
@@ -54,20 +58,11 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url('kategori'); ?>"
+            <form action="<?= base_url('buku/kategori'); ?>"
                 method="post">
                 <div class="modal-body">
                     <div class="form-group">
-                        <select name="kategori" class="form-control form-control-user">
-                            <option value="">Pilih Kategori</option>
-                            <?php
-                            $k =
-                                ['Sains', 'Hobby', 'Komputer', 'Komunikasi', 'Hukum', 'Agama', 'Populer', 'Bahasa', 'Komik'];
-                            for ($i = 0; $i < 9; $i++) { ?>
-                                <option value="<?= $k[$i]; ?>"><?=
-                                                                $k[$i]; ?></option>
-                            <?php } ?>
-                        </select>
+                        <input type="text" class="form-control form-control-user" id="kategori" name="kategori" placeholder="Masukkan Kategori">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -80,4 +75,45 @@
         </div>
     </div>
 </div>
-<!-- End of Modal Tambah Mneu -->
+<!-- End of Modal tambah Mneu -->
+<!-- Modal Edit Kategori -->
+<div class="modal fade" id="kategorieditModal" tabindex="-1"
+    role="dialog" aria-labelledby="kategorieditModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Kategori</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="<?= base_url('buku/editkategori'); ?>" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="hidden" name="id" id="edit-id">
+                        <input type="text" class="form-control form-control-user" id="edit-kategori" name="kategori" placeholder="Masukkan Kategori">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-ban"></i> Close</button>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).on('click', '.badge-info', function() {
+        let id = $(this).data('id');
+        let kategori = $(this).data('kategori');
+
+        console.log("ID yang diambil:", id);
+        console.log("Kategori yang diambil:", kategori);
+
+        $('#edit-id').val(id);
+        $('#edit-kategori').val(kategori);
+    });
+</script>
+
+<!--- tambahkan script ini     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> view-diheader

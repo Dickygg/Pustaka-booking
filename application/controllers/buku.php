@@ -113,6 +113,11 @@ class buku extends CI_Controller
         }
         $data['kategori'] = $this->modelBuku->getKategori()->result_array();
 
+        $this->form_validation->set_rules('judul_buku', 'judul buku', 'required|min_length[3]', [
+            'required' => 'pengarang harus diisi',
+            'min_length' => 'Pengarang terlalu pendek'
+        ]);
+
         $this->form_validation->set_rules('id_kategori', 'Kategori', 'required', [
             'required' => 'kategori harus diisi'
         ]);
@@ -179,6 +184,75 @@ class buku extends CI_Controller
             ];
             $this->modelBuku->updateBuku($data, ['id' => $this->input->post('id')]);
             redirect('buku');
+        }
+    }
+
+    public function kategori()
+    {
+        $this->load->model('modelUser');
+        $this->load->model('modelBuku');
+
+        $title['judul'] = 'kategori';
+        $user['user'] = $this->modelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
+        $data['kategori'] = $this->modelBuku->getKategori()->result_array();
+
+        $this->form_validation->set_rules('kategori', 'Kategori', 'required|trim|min_lenght[3]', [
+            'required' => 'Judul Buku Harus diisi',
+            'min_lenght' => 'Kategori terlalu pendek'
+        ]);
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('tamplate/view-header', $title);
+            $this->load->view('tamplate/view-sidebar', $user);
+            $this->load->view('tamplate/view-topbar', $user);
+            $this->load->view('view-kategori', $data);
+            $this->load->view('tamplate/view-footer');
+        } else {
+            $data = [
+                'kategori' => $this->input->post('kategori')
+            ];
+            $this->modelBuku->simpanData($data);
+            redirect('kategori');
+        }
+    }
+
+    public function hapuskategori()
+    {
+        $this->load->model('modelBuku');
+        $where = ['id' => $this->uri->segment(3)];
+        $this->modelBuku->hapuskategori($where);
+        redirect('kategori');
+    }
+
+
+    public function editkategori()
+    {
+
+        $this->modelBuku->kategoriWhere(['id' => $this->uri->segment(3)])->result_array();
+        $this->load->model('modelUser');
+        $this->load->model('modelBuku');
+
+        $title['judul'] = 'kategori';
+        $user['user'] = $this->modelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
+        $data['kategori'] = $this->modelBuku->getKategori()->result_array();
+        $this->form_validation->set_rules('kategori', 'Kategori', 'required|min_length[3]', [
+            'required' => 'Kategori Harus Diisi!',
+            'min_length' => 'kategori terlalu pendek!'
+        ]);
+
+        if ($this->form_validation->run() == true) {
+            $data = [
+                'kategori' => $this->input->post('kategori')
+            ];
+
+            $this->modelBuku->updateKategori($data, ['id' => $this->input->post('id')]);
+            redirect('buku/kategori/');
+        } else {
+            $this->load->view('tamplate/view-header', $title);
+            $this->load->view('tamplate/view-sidebar', $user);
+            $this->load->view('tamplate/view-topbar', $user);
+            $this->load->view('view-kategori', $data);
+            $this->load->view('tamplate/view-footer');
         }
     }
 }

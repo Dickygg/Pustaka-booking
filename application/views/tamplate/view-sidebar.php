@@ -48,7 +48,7 @@ justify-content-center" href="index.html">
     </li>
     <li class="nav-item">
         <a class="nav-link pb-0" href="<?=
-                                        base_url('Kategori'); ?>">
+                                        base_url('buku/Kategori'); ?>">
             <i class="fa fa-fw fa book"></i>
             <span>Kategori</span></a>
     </li>
