@@ -50,7 +50,7 @@
                             </td>
                             <td>
                                 <a href="<?=
-                                            base_url('buku/ubahBuku/') . $b['id']; ?>" class="badge badge-info"><i class="fas fa-edit"></i> Ubah</a>
+                                            base_url('buku/updateBuku/') . $b['id']; ?>" class="badge badge-info"><i class="fas fa-edit"></i> Ubah</a>
                                 <a href="<?=
                                             base_url('buku/delete/') . $b['id']; ?>" onclick="return confirm('Kamu yakin akan menghapus <?= $judul . '' . $b['judul_buku']; ?> ?');" class="badge badge-danger"><i class="fas fa-trash"></i> Hapus</a>
                             </td>
@@ -99,7 +99,7 @@
                         <input type="text" class="form-control form-control-user" id="penerbit" name="penerbit" placeholder="Masukkan nama penerbit">
                     </div>
                     <div class="form-group">
-                        <select name="tahun" class="form-control form-control-user">
+                        <select name="tahun_terbit" class="form-control form-control-user">
                             <option value="">Pilih Tahun</option>
                             <?php
                             for ($i = date('Y'); $i > 1000; $i--) {
