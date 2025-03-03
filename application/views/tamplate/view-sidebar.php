@@ -42,7 +42,7 @@ justify-content-center" href="index.html">
     </li>
     <li class="nav-item">
         <a class="nav-link pb-0" href="<?=
-                                        base_url('user/anggota'); ?>">
+                                        base_url('user'); ?>">
             <i class="fa fa-fw fa book"></i>
             <span>Data Anggota</span></a>
     </li>
