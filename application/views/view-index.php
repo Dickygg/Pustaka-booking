@@ -133,8 +133,7 @@
             <div class="page-header">
                 <span class="fas fa-book text-warning mt-2"> Data
                     Buku</span>
-                <a href="<?= base_url('buku'); ?>"><i class="fas fa-search 
-text-primary mt-2 float-right"> Tampilkan</i></a>
+                <a href="<?= base_url('buku'); ?>"><i class="fas fa-search text-primary mt-2 float-right"> Tampilkan</i></a>
             </div>
             <div class="table-responsive">
                 <table class="table mt-3" id="table-datatable">
